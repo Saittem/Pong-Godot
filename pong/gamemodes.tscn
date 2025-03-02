@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://2d0d11r5rt20"]
+
+[ext_resource type="Script" path="res://gamemodes.gd" id="1_7o5sg"]
+
+[node name="gamemodes" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7o5sg")
+
+[node name="PL_vs_PL" type="Button" parent="."]
+layout_mode = 2
+offset_left = 469.0
+offset_top = 181.0
+offset_right = 703.0
+offset_bottom = 273.0
+theme_override_font_sizes/font_size = 25
+text = "Player vs. Player"
+
+[node name="PL_vs_PC" type="Button" parent="."]
+layout_mode = 2
+offset_left = 469.0
+offset_top = 286.0
+offset_right = 703.0
+offset_bottom = 389.0
+theme_override_font_sizes/font_size = 25
+text = "Player vs. PC"
+
+[connection signal="pressed" from="PL_vs_PL" to="." method="_on_pl_vs_pl_pressed"]
+[connection signal="pressed" from="PL_vs_PC" to="." method="_on_pl_vs_pc_pressed"]

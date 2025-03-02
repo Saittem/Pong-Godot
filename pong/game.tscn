@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://06jds2oa30xx"]
+
+[ext_resource type="PackedScene" uid="uid://dhuinwnwlbkj0" path="res://player.tscn" id="1_ajkpi"]
+[ext_resource type="Script" path="res://Global.gd" id="1_y5cgt"]
+[ext_resource type="PackedScene" uid="uid://bscxr5vxyl1bh" path="res://enemy.tscn" id="2_6rsbd"]
+[ext_resource type="PackedScene" uid="uid://d34ctfe3lgwgs" path="res://ball.tscn" id="3_s4msj"]
+[ext_resource type="Script" path="res://enemy.gd" id="4_uas72"]
+[ext_resource type="Script" path="res://player_score.gd" id="5_4lqav"]
+[ext_resource type="Script" path="res://enemy_score.gd" id="6_g1fyc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kq1sm"]
+size = Vector2(1164, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80y2f"]
+size = Vector2(1185, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjtit"]
+size = Vector2(19, 652)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_timke"]
+size = Vector2(20, 659)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_y5cgt")
+
+[node name="Player" parent="." instance=ExtResource("1_ajkpi")]
+position = Vector2(108, 284)
+
+[node name="enemy" parent="." instance=ExtResource("2_6rsbd")]
+position = Vector2(1045, 293)
+script = ExtResource("4_uas72")
+
+[node name="ball" parent="." instance=ExtResource("3_s4msj")]
+position = Vector2(576, 297)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(572, 0)
+shape = SubResource("RectangleShape2D_kq1sm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(564.5, 651)
+shape = SubResource("RectangleShape2D_80y2f")
+
+[node name="playerScore" type="Label" parent="."]
+offset_left = 107.0
+offset_top = 46.0
+offset_right = 259.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_4lqav")
+
+[node name="enemyScore" type="Label" parent="."]
+offset_left = 894.0
+offset_top = 48.0
+offset_right = 1072.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_g1fyc")
+
+[node name="playerGoal" type="StaticBody2D" parent="." groups=["enemyScore"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerGoal"]
+position = Vector2(1152.5, 325)
+shape = SubResource("RectangleShape2D_mjtit")
+
+[node name="enemyGoal" type="StaticBody2D" parent="." groups=["playerScore"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyGoal"]
+position = Vector2(0, 319.5)
+shape = SubResource("RectangleShape2D_timke")
