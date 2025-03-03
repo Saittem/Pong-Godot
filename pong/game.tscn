@@ -9,38 +9,39 @@
 [ext_resource type="Script" path="res://enemy_score.gd" id="6_g1fyc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq1sm"]
-size = Vector2(1164, 20)
+size = Vector2(1202, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80y2f"]
-size = Vector2(1185, 31)
+size = Vector2(1226, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjtit"]
 size = Vector2(19, 652)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_timke"]
-size = Vector2(20, 659)
+size = Vector2(14, 659)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_y5cgt")
 
 [node name="Player" parent="." instance=ExtResource("1_ajkpi")]
-position = Vector2(108, 284)
+position = Vector2(109, 287)
 
-[node name="enemy" parent="." instance=ExtResource("2_6rsbd")]
-position = Vector2(1045, 293)
+[node name="enemy" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("2_6rsbd")]
+position = Vector2(1063, 287)
 script = ExtResource("4_uas72")
+ball = NodePath("../ball")
 
 [node name="ball" parent="." instance=ExtResource("3_s4msj")]
-position = Vector2(576, 297)
+position = Vector2(594, 291)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(572, 0)
+position = Vector2(591, 0)
 shape = SubResource("RectangleShape2D_kq1sm")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(564.5, 651)
+position = Vector2(585, 651)
 shape = SubResource("RectangleShape2D_80y2f")
 
 [node name="playerScore" type="Label" parent="."]
@@ -66,11 +67,11 @@ script = ExtResource("6_g1fyc")
 [node name="playerGoal" type="StaticBody2D" parent="." groups=["enemyScore"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerGoal"]
-position = Vector2(1152.5, 325)
+position = Vector2(1193, 329)
 shape = SubResource("RectangleShape2D_mjtit")
 
 [node name="enemyGoal" type="StaticBody2D" parent="." groups=["playerScore"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyGoal"]
-position = Vector2(0, 319.5)
+position = Vector2(-8, 321)
 shape = SubResource("RectangleShape2D_timke")

@@ -1,23 +1,15 @@
 extends CharacterBody2D
 
 var ballSpeed = 10
-
-signal position_changed(new_position: Vector2)  # Signal emitted when the ball's position changes
-
-var previous_position: Vector2  # Track the previous position
+var audio_player : AudioStreamPlayer2D
 
 func _ready() -> void:
+	audio_player = get_node("scoreAudioPlayer")
 	reset_ball()  # Use reset_ball to initialize the ball's velocity
-	print(DisplayServer.window_get_size().y)
-	print(DisplayServer.window_get_size().x)
 	
 func _physics_process(delta: float) -> void:
+
 	var collision = move_and_collide(velocity)
-	
-		# Check if the ball's position has changed
-	if position != previous_position:
-		emit_signal("position_changed", position)
-		previous_position = position
 	
 	if collision:
 		var collision_normal = collision.get_normal()
@@ -27,17 +19,38 @@ func _physics_process(delta: float) -> void:
 		if collision.get_collider().is_in_group("playerScore"):
 			Global.enemy_score += 1
 			print("Enemy Score: ", Global.enemy_score)
+			scoreAudio()
 			reset_ball()
 		elif collision.get_collider().is_in_group("enemyScore"):
 			Global.player_score += 1
 			print("Player Score: ", Global.player_score)
+			scoreAudio()
+			reset_ball()
+		elif collision.get_collider().is_in_group("player1Score"):
+			Global.player1_score += 1
+			print("Player1 Score: ", Global.player1_score)
+			scoreAudio()
+			reset_ball()
+		elif collision.get_collider().is_in_group("player2Score"):
+			Global.player2_score += 1
+			print("Player 2 Score: ", Global.player2_score)
+			scoreAudio()
 			reset_ball()
 
+func scoreAudio():
+		audio_player.play()
+
 func reset_ball():
-	# Reset the ball's position
-	position = Vector2(DisplayServer.window_get_size().x/2, DisplayServer.window_get_size().y/2)  # Center of the screen (adjust as needed)
-	
-	# Generate a random angle that avoids straight up, down, left, or right
+	# Reset the ball's position to the center
+	position = Vector2(DisplayServer.window_get_size().x / 2, DisplayServer.window_get_size().y / 2)
+
+	# Stop the ball temporarily
+	velocity = Vector2.ZERO  
+
+	# Wait for 500ms (0.5 seconds) before restarting movement
+	await get_tree().create_timer(0.5).timeout  
+
+	# Generate a random angle that avoids straight directions
 	var random_angle = get_random_angle_with_exclusions()
 	
 	# Calculate the velocity vector based on the random angle

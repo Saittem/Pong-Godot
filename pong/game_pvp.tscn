@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://crmjkqjgfwj16"]
+
+[ext_resource type="Script" path="res://player_1_score.gd" id="1_gu2sh"]
+[ext_resource type="Script" path="res://player_2_score.gd" id="2_1purg"]
+[ext_resource type="PackedScene" uid="uid://dhuinwnwlbkj0" path="res://player.tscn" id="3_g4lm3"]
+[ext_resource type="PackedScene" uid="uid://b5jr0skuen2cp" path="res://player_2.tscn" id="4_2awa5"]
+[ext_resource type="PackedScene" uid="uid://d34ctfe3lgwgs" path="res://ball.tscn" id="5_q4ldl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxktb"]
+size = Vector2(1202, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u07l8"]
+size = Vector2(1226, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2au5r"]
+size = Vector2(19, 652)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdlnv"]
+size = Vector2(14, 659)
+
+[node name="gamePvP" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(591, 0)
+shape = SubResource("RectangleShape2D_xxktb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(585, 651)
+shape = SubResource("RectangleShape2D_u07l8")
+
+[node name="player1Score" type="Label" parent="."]
+offset_left = 107.0
+offset_top = 46.0
+offset_right = 259.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_gu2sh")
+
+[node name="player2Score" type="Label" parent="."]
+offset_left = 894.0
+offset_top = 48.0
+offset_right = 1072.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_1purg")
+
+[node name="Player" parent="." instance=ExtResource("3_g4lm3")]
+position = Vector2(65, 304)
+
+[node name="Player2" parent="." instance=ExtResource("4_2awa5")]
+position = Vector2(1089, 307)
+
+[node name="ball" parent="." instance=ExtResource("5_q4ldl")]
+position = Vector2(600, 301)
+
+[node name="player1Goal" type="StaticBody2D" parent="." groups=["player1Score"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player1Goal"]
+position = Vector2(1193, 329)
+shape = SubResource("RectangleShape2D_2au5r")
+
+[node name="player2Goal" type="StaticBody2D" parent="." groups=["player2Score"]]
+position = Vector2(-8, 321)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player2Goal"]
+shape = SubResource("RectangleShape2D_fdlnv")
